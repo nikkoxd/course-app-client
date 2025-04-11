@@ -1,0 +1,78 @@
+{
+  "courses": [
+    {
+      "theme": "Introduction to Quantum Physics",
+      "reading_time": "2 hours",
+      "has_tests": true,
+      "text_blocks": [
+        {
+          "name": "The Basics",
+          "text": "Quantum physics is the study of the very small..."
+        },
+        {
+          "name": "Wave-Particle Duality",
+          "text": "One of the key concepts is wave-particle duality..."
+        }
+      ],
+      "tests": [
+        {
+          "question": "What is quantum entanglement?",
+          "answers": [
+            "A strong force between particles",
+            "A phenomenon where particles are linked...",
+            "The emission of photons",
+            "A type of nuclear fission"
+          ],
+          "right_answer": "A phenomenon where particles are linked..."
+        },
+        {
+          "question": "Who proposed the concept of wave-particle duality?",
+          "answers": [
+            "Albert Einstein",
+            "Niels Bohr",
+            "Max Planck",
+            "Louis de Broglie"
+          ],
+          "right_answer": "Louis de Broglie"
+        }
+      ]
+    },
+    {
+      "theme": "Data Structures and Algorithms",
+      "reading_time": "3 hours",
+      "has_tests": true,
+      "text_blocks": [
+        {
+          "name": "Arrays",
+          "text": "Arrays are fundamental data structures..."
+        },
+        {
+          "name": "Linked Lists",
+          "text": "Linked lists offer dynamic memory allocation..."
+        }
+      ],
+      "tests": [
+        {
+          "question": "What is the time complexity of accessing an element in an array?",
+          "answers": [
+            "O(1)",
+            "O(n)",
+            "O(log n)",
+            "O(n^2)"
+          ],
+          "right_answer": "O(1)"
+        },
+        {
+          "question": "Which data structure uses FIFO?",
+          "answers": [
+            "Stack",
+            "Queue",
+            "Linked List",
+            "Tree"
+          ],
+          "right_answer": "Queue"
+        }
+      ]
+    }
+  ]
+}
