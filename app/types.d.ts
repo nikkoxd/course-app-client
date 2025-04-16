@@ -1,4 +1,5 @@
 export interface Course {
+  id: number;
   theme: string;
   reading_time: string;
   has_tests: boolean;
@@ -7,12 +8,18 @@ export interface Course {
 }
 
 export interface TextBlock {
+  id: number;
   name: string;
   text: string;
 }
 
 export interface Test {
+  id: number;
   question: string;
-  answers: string[];
-  right_answer: string;
+  answers: Answer[];
+}
+
+export interface Answer {
+  text: string;
+  right: boolean;
 }

@@ -1,76 +1,159 @@
 {
   "courses": [
     {
+      "id": 1,
       "theme": "Introduction to Quantum Physics",
       "reading_time": "2 hours",
       "has_tests": true,
       "text_blocks": [
         {
+          "id": 1,
           "name": "The Basics",
           "text": "Quantum physics is the study of the very small..."
         },
         {
+          "id": 2,
           "name": "Wave-Particle Duality",
           "text": "One of the key concepts is wave-particle duality..."
         }
       ],
       "tests": [
         {
+          "id": 1,
           "question": "What is quantum entanglement?",
           "answers": [
-            "A strong force between particles",
-            "A phenomenon where particles are linked...",
-            "The emission of photons",
-            "A type of nuclear fission"
-          ],
-          "right_answer": "A phenomenon where particles are linked..."
+            {
+              "text": "A strong force between particles",
+              "right": false
+            },
+            {
+              "text": "A phenomenon where particles are linked...",
+              "right": true
+            },
+            {
+              "text": "The emission of photons",
+              "right": false
+            },
+            {
+              "text": "A type of nuclear fission",
+              "right": false
+            }
+          ]
         },
         {
+          "id": 2,
           "question": "Who proposed the concept of wave-particle duality?",
           "answers": [
-            "Albert Einstein",
-            "Niels Bohr",
-            "Max Planck",
-            "Louis de Broglie"
-          ],
-          "right_answer": "Louis de Broglie"
+            {
+              "text": "Albert Einstein",
+              "right": false
+            },
+            {
+              "text": "Niels Bohr",
+              "right": false
+            },
+            {
+              "text": "Max Planck",
+              "right": false
+            },
+            {
+              "text": "Louis de Broglie",
+              "right": true
+            }
+          ]
         }
       ]
     },
     {
+      "id": 2,
       "theme": "Data Structures and Algorithms",
       "reading_time": "3 hours",
       "has_tests": true,
       "text_blocks": [
         {
+          "id": 1,
           "name": "Arrays",
           "text": "Arrays are fundamental data structures..."
         },
         {
+          "id": 2,
           "name": "Linked Lists",
           "text": "Linked lists offer dynamic memory allocation..."
         }
       ],
       "tests": [
         {
+          "id": 1,
           "question": "What is the time complexity of accessing an element in an array?",
           "answers": [
-            "O(1)",
-            "O(n)",
-            "O(log n)",
-            "O(n^2)"
-          ],
-          "right_answer": "O(1)"
+            {
+              "text": "O(1)",
+              "right": true
+            },
+            {
+              "text": "O(n)",
+              "right": false
+            },
+            {
+              "text": "O(log n)",
+              "right": false
+            },
+            {
+              "text": "O(n^2)",
+              "right": false
+            }
+          ]
         },
         {
+          "id": 2,
           "question": "Which data structure uses FIFO?",
           "answers": [
-            "Stack",
-            "Queue",
-            "Linked List",
-            "Tree"
-          ],
-          "right_answer": "Queue"
+            {
+              "text": "Stack",
+              "right": false
+            },
+            {
+              "text": "Queue",
+              "right": true
+            },
+            {
+              "text": "Linked List",
+              "right": false
+            },
+            {
+              "text": "Tree",
+              "right": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "theme": "Aboba",
+      "reading_time": "1 hour",
+      "has_tests": true,
+      "text_blocks": [
+        {
+          "id": 1,
+          "name": "Aboba 1",
+          "text": "blah blah"
+        }
+      ],
+      "tests": [
+        {
+          "id": 1,
+          "question": "sosal?",
+          "answers": [
+            {
+              "text": "da",
+              "right": true
+            },
+            {
+              "text": "net",
+              "right": false
+            }
+          ]
         }
       ]
     }
