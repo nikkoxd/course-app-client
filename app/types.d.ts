@@ -20,6 +20,7 @@ export interface Test {
 }
 
 export interface Answer {
+  id: number;
   text: string;
   right: boolean;
 }
