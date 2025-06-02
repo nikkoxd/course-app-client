@@ -12,7 +12,7 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export async function clientLoader() {
-  const courses = await fetch("http://localhost:3000/courses");
+  const courses = await fetch(`${process.env.API_URL}/api/courses`);
   return courses.json();
 }
 
@@ -38,10 +38,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       return course.theme.toLowerCase().includes(themeQuery!.toString().toLowerCase());
     })
     const filteredByTime = filteredByTheme.filter((course) => {
-      return course.reading_time.toLowerCase().includes(timeQuery!.toString().toLowerCase());
+      return course.readingTime.toLowerCase().includes(timeQuery!.toString().toLowerCase());
     })
     const filteredByHasTests = filteredByTime.filter((course) => {
-      return course.has_tests === Boolean(hasTests);
+      return course.hasTests === Boolean(hasTests);
     })
 
     setCourses(filteredByHasTests);

@@ -5,4 +5,7 @@ export default [
 
   route("courses/:courseId", "routes/course.tsx"),
   route("add-course", "routes/addCourse.tsx"),
+
+  route("admin", "routes/admin/page.tsx"),
+  route("admin/login", "routes/admin/login.tsx"),
 ] satisfies RouteConfig;

@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 import { useState } from "react";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
-  const courses = await fetch("http://localhost:3000/courses");
+  const courses = await fetch(`${process.env.API_URL}/api/courses`);
   const coursesResponse = await courses.json() as Course[];
 
   console.log(coursesResponse);
@@ -50,7 +50,7 @@ export default function Course({ loaderData }: Route.ComponentProps) {
       <NavLink to="/">Go back</NavLink>
       <div className="mt-6">
         <h1>{loaderData.course.theme}</h1>
-        {loaderData.course.text_blocks.map((textBlock) => (
+        {loaderData.course.textBlocks.map((textBlock) => (
           <div key={textBlock.name} className="mt-4">
             <h2>{textBlock.name}</h2>
             <p>{textBlock.text}</p>

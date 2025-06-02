@@ -19,9 +19,9 @@ export default function AddCourse() {
   const [state, dispatch] = useReducer(reducer, {
     id: 0,
     theme: "",
-    reading_time: "",
-    has_tests: false,
-    text_blocks: [],
+    readingTime: "",
+    hasTests: false,
+    textBlocks: [],
     tests: [],
   })
 
@@ -30,22 +30,22 @@ export default function AddCourse() {
       case "SET_THEME":
         return { ...state, theme: action.theme };
       case "SET_READING_TIME":
-        return { ...state, reading_time: action.reading_time };
+        return { ...state, readingTime: action.reading_time };
       case "ADD_TEXT_BLOCK":
         return {
-          ...state, text_blocks: [
-            ...state.text_blocks, {
-              id: state.text_blocks.length + 1,
+          ...state, textBlocks: [
+            ...state.textBlocks, {
+              id: state.textBlocks.length + 1,
               name: "",
               text: "",
             }
           ]
         }
       case "REMOVE_TEXT_BLOCK":
-        return { ...state, text_blocks: state.text_blocks.filter((block) => block.id !== action.text_block_id) };
+        return { ...state, textBlocks: state.textBlocks.filter((block) => block.id !== action.text_block_id) };
       case "UPDATE_TEXT_BLOCK":
         return {
-          ...state, text_blocks: state.text_blocks.map((block) => {
+          ...state, textBlocks: state.textBlocks.map((block) => {
             if (block.id === action.text_block.id) {
               return action.text_block;
             }
@@ -53,6 +53,9 @@ export default function AddCourse() {
           })
         };
       case "ADD_TEST":
+        if (state.tests.length == 0) {
+          state.hasTests = true;
+        }
         return {
           ...state, tests: [
             ...state.tests, {
@@ -63,6 +66,9 @@ export default function AddCourse() {
           ]
         }
       case "REMOVE_TEST":
+        if (state.tests.length == 1) {
+          state.hasTests = false;
+        }
         return { ...state, tests: state.tests.filter((test) => test.id !== action.test_id) };
       case "UPDATE_TEST":
         return {
@@ -124,29 +130,20 @@ export default function AddCourse() {
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    fetch("http://localhost:3000/courses").then((response) => {
-      response.json().then((data: Course[]) => {
-        const course = state;
-        course.id = data.length + 1;
-
-        fetch("http://localhost:3000/courses", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(course),
-        }).then((response) => {
-          if (response.ok) {
-            console.log("Course added");
-          } else {
-            console.log("Error adding course");
-          }
-        });
-      })
+    fetch(`${process.env.API_URL}/api/courses`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(state),
+    }).then((response) => {
+      if (response.ok) {
+        console.log("Course added");
+      } else {
+        console.log("Error adding course");
+      }
     })
-
   }
-
   return (
     <main className="container mx-auto my-12">
       <NavLink to="/">Go back</NavLink>
@@ -166,12 +163,12 @@ export default function AddCourse() {
             name="reading-time"
             placeholder="Reading time"
             className="px-4 py-2 rounded-lg border-1 border-black"
-            value={state.reading_time}
+            value={state.readingTime}
             onChange={(event) => dispatch({ type: "SET_READING_TIME", reading_time: event.currentTarget.value })}
           />
           <div>
             <h2>Text blocks</h2>
-            {state.text_blocks.map((textBlock) => (
+            {state.textBlocks.map((textBlock) => (
               <div key={textBlock.id} className="flex flex-col gap-2 my-4">
                 <div className="flex gap-2 w-full">
                   <input

@@ -1,9 +1,14 @@
+export interface LoginFormData {
+  username: string;
+  password: string;
+}
+
 export interface Course {
   id: number;
   theme: string;
-  reading_time: string;
-  has_tests: boolean;
-  text_blocks: TextBlock[];
+  readingTime: string;
+  hasTests: boolean;
+  textBlocks: TextBlock[];
   tests: Test[];
 }
 
