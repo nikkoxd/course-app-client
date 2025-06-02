@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -26,10 +25,9 @@ export default function AdminLogin() {
   }
 
   return (
-    <main className="w-full h-screen flex justify-center items-center">
+    <main className="absolute top-0 z-[-1] w-full h-screen flex justify-center items-center">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <NavLink to="/" className="text-sm">Go home</NavLink>
           <h2>Login</h2>
         </CardHeader>
         <CardContent>

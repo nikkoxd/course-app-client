@@ -55,7 +55,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <main className="container mx-auto my-12 flex flex-col gap-6">
-      <h1>Courses</h1>
       <Search filterResults={filterCourses} />
       <div className="rounded-md border">
         <Table>
