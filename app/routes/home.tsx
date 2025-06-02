@@ -13,6 +13,7 @@ export function meta({ }: Route.MetaArgs) {
 
 export async function clientLoader() {
   const courses = await fetch(`${process.env.API_URL}/api/courses`);
+  console.log(courses);
   return courses.json();
 }
 
