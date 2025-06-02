@@ -1,9 +1,10 @@
 import Search from "~/components/search";
 import type { Route } from "./+types/home";
 import type { Course } from "~/types";
-import CourseItem from "~/components/courseItem";
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table";
+import { Button } from "~/components/ui/button";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -21,9 +22,9 @@ export function HydrateFallback() {
   return <div>Loading...</div>;
 }
 
-
 export default function Home({ loaderData }: Route.ComponentProps) {
   const [courses, setCourses] = useState(loaderData as Course[]);
+  const navigate = useNavigate();
 
   function filterCourses(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,21 +49,40 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     setCourses(filteredByHasTests);
   }
 
+  function handleRowClick(course: Course) {
+    navigate(`/courses/${course.id}`);
+  }
+
   return (
-    <main className="container mx-auto my-12">
+    <main className="container mx-auto my-12 flex flex-col gap-6">
+      <h1>Courses</h1>
       <Search filterResults={filterCourses} />
-      <div className="mt-12 p-2 border-b-1 border-black grid grid-cols-3 gap-12">
-        <p>Theme</p>
-        <p>Reading time</p>
-        <p>Has tests?</p>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Theme</TableHead>
+              <TableHead>Reading time</TableHead>
+              <TableHead>Has tests</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {courses.map((course) => (
+              <TableRow key={course.id} onClick={() => handleRowClick(course)} className="cursor-pointer">
+                <TableCell>{course.theme}</TableCell>
+                <TableCell>{course.readingTime}</TableCell>
+                <TableCell>{course.hasTests ? "Yes" : "No"}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
       <div>
-        {courses.map((course) => (
-          <CourseItem key={course.id} course={course} />
-        ))}
-      </div>
-      <div className="mt-6">
-        <NavLink to="/add-course" className="px-4 py-2 rounded-lg bg-green-600 text-white">Add course</NavLink>
+        <Button asChild>
+          <NavLink to="/add-course">
+            Add course
+          </NavLink>
+        </Button>
       </div>
     </main>
   );
