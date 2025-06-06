@@ -19,7 +19,7 @@ export default function TestArray({ form }: {
       {fields.map((field, index) => (
         <Card key={field.id}>
           <CardHeader>
-            <CardTitle>Test {index + 1}</CardTitle>
+            <CardTitle>Question {index + 1}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             <FormField
@@ -66,7 +66,7 @@ export default function TestArray({ form }: {
           })
         }}
       >
-        Add test
+        Add question
       </Button>
     </>
   )

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -9,19 +10,27 @@ export default function AdminLogin() {
     username: "",
     password: "",
   });
+  const [error, setError] = useState<string>("");
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const navigate = useNavigate();
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    fetch(`${process.env.API_URL}/admin/login`, {
+
+    const response = await fetch(`${process.env.API_URL}/admin/login`, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-    }).then(response => {
-      document.cookie += response.headers.getSetCookie();
     })
+
+    if (response.ok) {
+      navigate("/admin");
+    } else  {
+      setError("Invalid username or password");
+    }
   }
 
   return (
@@ -49,7 +58,10 @@ export default function AdminLogin() {
               />
             </div>
 
-            <Button type="submit">Login</Button>
+            <div className="flex flex-col gap-4">
+              {error ? <p className="py-0 text-destructive">{error}</p> : null}
+              <Button type="submit">Login</Button>
+            </div>
           </form>
         </CardContent>
       </Card>

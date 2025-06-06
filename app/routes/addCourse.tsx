@@ -17,20 +17,20 @@ export default function AddCourse() {
     }
   })
 
-  function onSubmit(values: Course) {
-    fetch(`${process.env.API_URL}/api/courses`, {
+  async function onSubmit(values: Course) {
+    const response = await fetch(`${process.env.API_URL}/api/courses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-    }).then((response) => {
-      if (response.ok) {
-        console.log("Course added");
-      } else {
-        console.log("Error adding course");
-      }
     })
+
+    if (response.ok) {
+      console.log("Course added");
+    } else {
+      console.log("Error adding course");
+    }
   };
 
   return (

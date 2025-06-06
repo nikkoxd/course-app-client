@@ -2,9 +2,9 @@ import Search from "~/components/search";
 import type { Route } from "./+types/home";
 import type { Course } from "~/types";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table";
+import { NavLink } from "react-router";
 import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -24,9 +24,8 @@ export function HydrateFallback() {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const [courses, setCourses] = useState(loaderData as Course[]);
-  const navigate = useNavigate();
 
-  function filterCourses(event: React.FormEvent<HTMLFormElement>) {
+  async function filterCourses(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -34,48 +33,31 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     const timeQuery = formData.get("time-query");
     const hasTests = formData.get("has-tests");
 
-    const courses = loaderData as Course[];
+    const response = await fetch(`${process.env.API_URL}/api/courses?theme=${themeQuery}&readingTime=${timeQuery}&hasTests=${hasTests}`);
+    const courses = await response.json();
 
-    const filteredByTheme = courses.filter((course) => {
-      return course.theme.toLowerCase().includes(themeQuery!.toString().toLowerCase());
-    })
-    const filteredByTime = filteredByTheme.filter((course) => {
-      return course.readingTime.toLowerCase().includes(timeQuery!.toString().toLowerCase());
-    })
-    const filteredByHasTests = filteredByTime.filter((course) => {
-      return course.hasTests === Boolean(hasTests);
-    })
-
-    setCourses(filteredByHasTests);
-  }
-
-  function handleRowClick(course: Course) {
-    navigate(`/courses/${course.id}`);
+    setCourses(courses);
   }
 
   return (
     <main className="container mx-auto my-12 flex flex-col gap-6">
-      <Search filterResults={filterCourses} />
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Theme</TableHead>
-              <TableHead>Reading time</TableHead>
-              <TableHead>Has tests</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {courses.map((course) => (
-              <TableRow key={course.id} onClick={() => handleRowClick(course)} className="cursor-pointer">
-                <TableCell>{course.theme}</TableCell>
-                <TableCell>{course.readingTime}</TableCell>
-                <TableCell>{course.hasTests ? "Yes" : "No"}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <Search onSearch={filterCourses} />
+      {courses.map((course) => (
+        <NavLink to={`/courses/${course.id}`}>
+          <Card key={course.id}>
+            <CardHeader>
+              <CardTitle>{course.theme}</CardTitle>
+              <CardDescription>
+                {course.readingTime}
+                {course.hasTests ? ", with a test" : ""}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {course.textBlocks[0].text}
+            </CardContent>
+          </Card>
+        </NavLink>
+      ))}
       <div>
         <Button asChild>
           <NavLink to="/add-course">
@@ -83,6 +65,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </NavLink>
         </Button>
       </div>
-    </main>
+    </main >
   );
 }

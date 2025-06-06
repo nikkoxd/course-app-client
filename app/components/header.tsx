@@ -8,7 +8,7 @@ export default function Header() {
         <h1>Courses</h1>
       </NavLink>
       <Button asChild>
-        <NavLink to="/admin/login">Login</NavLink>
+        <NavLink to="/admin">Admin</NavLink>
       </Button>
     </header>
   )

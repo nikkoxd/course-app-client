@@ -29,3 +29,8 @@ export interface Answer {
   text: string;
   right: boolean;
 }
+
+export interface User {
+  id: number;
+  username: string;
+}
